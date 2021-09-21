@@ -1,0 +1,79 @@
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+ext.deps = [:]
+def versions = [:]
+versions.kotlin = "1.4.32"
+versions.support = "1.1.0"
+versions.constraint_layout = "1.1.3"
+versions.material = "1.1.0-alpha10"
+versions.room = "2.2.0-rc01"
+versions.navigation = "2.1.0"
+versions.lifecycle = "2.1.0"
+versions.retrofit = "2.6.1"
+versions.dagger = "2.18"
+versions.recyclerview = "1.1.0-beta04"
+versions.cardview = "1.0.0"
+versions.constraint_layout = "1.1.3"
+
+versions.gson = "2.7"
+
+def deps = [:]
+
+def support = [:]
+support.recyclerview = "androidx.recyclerview:recyclerview:$versions.recyclerview"
+support.cardview = "androidx.cardview:cardview:$versions.cardview"
+support.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+deps.support = support
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.ktx = "androidx.room:room-ktx:$versions.room"
+deps.room = room
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
+deps.kotlin = kotlin
+
+def lifecycle = [:]
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+deps.retrofit = retrofit
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+
+
+def navigation = [:]
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+deps.navigation = navigation
+
+
+deps.gson = "com.google.code.gson:gson:$versions.gson"
+deps.material = "com.google.android.material:material:$versions.material"
+
+ext.deps = deps
+
+
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.maven { url 'https://maven.google.com' }
+}
+
+ext.addRepos = this.&addRepos
